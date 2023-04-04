@@ -2,7 +2,7 @@
 import {
   LOGIN
 } from "../../../constants/actiontypes";
-import axiosInstance from "../../../helpers/axios";
+import axiosInstance from "../../../helpers/axiosInstance";
 export const login = ({ password, username }) => (dispatch) => {
 
     console.log(username, password)
@@ -11,7 +11,7 @@ export const login = ({ password, username }) => (dispatch) => {
     type: LOGIN.LOADING,
   });
 
-  axiosInstance
+  axiosInstance()
     .post("/auth/login", {
       password,
       username,

@@ -1,0 +1,4 @@
+export const API = {
+
+    CONNECTION_ERROR : 'CONNECTION_ERROR'
+}

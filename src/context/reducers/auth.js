@@ -1,3 +1,5 @@
+import authInitialState from "../initialstate/authInitialState";
+
 const auth = (state, { payload, type}) => {
 
     switch(type){
@@ -34,6 +36,11 @@ const auth = (state, { payload, type}) => {
                 }
 
             }
+        case 'LOGOUT_USER': {
+            console.log('logging out')
+            return { ...state, ...authInitialState}
+        }
+    
 
 
         default : return state;

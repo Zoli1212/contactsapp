@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Button, Image, Menu, Icon } from 'semantic-ui-react'
 import logo from '../../assets/images/logo.svg';
-import { Link, useLocation } from 'react-router-dom'
+import { Link, Navigate, useLocation } from 'react-router-dom'
 import logout from '../../context/actions/auth/logout';
 import { useNavigate} from 'react-router-dom'
 import { GlobalContext } from '../../context/Provider';
@@ -10,9 +10,12 @@ export const Header = () => {
   const  { pathname}  = useLocation()
 
   const navigate = useNavigate()
-  const { contactsDispatch: dispatch } = useContext(GlobalContext);
+  const { contactsDispatch: dispatch, authDispatch } = useContext(GlobalContext);
+
+ 
   const handleUserLogout = () => {
-    logout(navigate)(dispatch);
+    logout(navigate)(dispatch)(authDispatch);
+    
   };
 
   return (

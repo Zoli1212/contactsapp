@@ -15,6 +15,13 @@ export const LOGIN = {
 
 export const LOGOUT = {
 
-    USER: 'LOGOUT_USER'
+    LOGOUT: 'LOGOUT_USER'
     
+}
+
+export const CONTACTS = {
+    LOADING: 'CONTACTS_LOADING',
+    SUCCESS: 'CONTACTS_LOAD_SUCCESS',
+    ERROR: 'CONTACTS_LOAD_ERROR'
+
 }

@@ -1,16 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Header } from '../../components/Header'
+import getContacts from '../../context/contacts/getContacts'
 import { useGlobalContext } from '../../context/Provider'
+import ContactsListUI from '../../layout/Contacts/List'
+
 
 export const ContactsComponent = () => {
 
-  const context = useGlobalContext()
+  const { contactsDispatch, contactsState } = useGlobalContext()
 
-  console.log(context)
+  const navigate = useNavigate()
+
+  console.log(contactsState)
+
+ useEffect(() => {
+
+
+  getContacts(navigate)(contactsDispatch)
+
+ }, [])
   return (
-    <div>
-      <Header />
-      <h1>Home</h1>
-    </div>
+    <ContactsListUI state={contactsState} />
   )
 }

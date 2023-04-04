@@ -1,10 +1,14 @@
 import { LOGOUT } from "../../../constants/actiontypes";
 
 
-export default (navigate) => (dispatch) => {
+export default (navigate) => (dispatch) => (authDispatch) => {
   localStorage.removeItem("token");
+  authDispatch({
+    type: LOGOUT.LOGOUT
+  })
+  
   dispatch({
-    type: LOGOUT.USER,
+    type: LOGOUT.LOGOUT,
   });
-  navigate("/auth/login");
+  return navigate("/auth/login");
 };
