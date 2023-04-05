@@ -40,6 +40,61 @@ export const contacts = (state,{ payload, type}) => {
                 
                 return {...state, ...contactsInitialState}
             }
+        case 'ADD_CONTACT_LOAD': {
+            return {
+                ...state,
+                addContact: {
+                    ...state.addContact,
+                    loading: true
+                }
+
+            }
+        }
+
+        case 'ADD_CONTACT_ERROR': {
+
+            return {
+                ...state,
+                addContact: {
+                    ...state.addContact,
+                    loading: false
+                }
+            }
+
+        }
+
+        case 'ADD_CONTACT_SUCCESS': {
+
+            return {
+                ...state,
+                addContact: {
+                    ...state.addContact,
+                    loading: false,
+                    data: payload,
+
+                },
+                contacts: {
+                    ...state.contacts,
+                    loading: false,
+                    data: [payload, ...state.contacts.data]
+                }
+            }
+
+        }
+
+        case 'CLEAR_ADD_CONTACT': {
+
+            return {
+                ...state,
+                addContact: {
+                    ...state.addContact,
+                    error: null,
+                    loading: false,
+                    data: null
+                }
+            }
+
+        }
 
        
         default:

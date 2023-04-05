@@ -47,7 +47,7 @@ const ContactsListUI = ({state: { contacts: { loading, isSearchActive, foundCont
         <List>
             {
                 data.length && data.map((contact, i) => 
-                (<List.Item>
+                (<List.Item key={contact.id} >
                     <List.Content floated='right'>
                        
                         <span>{contact.phone_number}</span>

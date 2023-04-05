@@ -5,7 +5,7 @@ import routes from './routes';
 import 'semantic-ui-css/semantic.min.css'
 import { GlobalProvider } from './context/Provider';
 import isAuthenticated from './utils/isAuthenticated';
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 
 
 const RenderRoute = ({ component: Component, path, needsAuth, title, ...rest}) => {
@@ -13,7 +13,8 @@ const RenderRoute = ({ component: Component, path, needsAuth, title, ...rest}) =
   document.title = title || 'E-sport'
 
   const navigate = useNavigate()
-  console.log(isAuthenticated())
+ 
+
  
 
   useEffect(() => {
@@ -40,7 +41,7 @@ function App() {
     <GlobalProvider>
       <Router>
         <Routes>
-          { routes.map((route, index) => (<Route key={index} path={route.path} element={<RenderRoute {...route} />} />) )}
+          { routes.map((route, index) => (<Route key={index} path={route.path} element={<Suspense fallback={<h2>Loading..</h2>}><RenderRoute {...route} /></Suspense>} />) )}
         </Routes>
       </Router>
     
