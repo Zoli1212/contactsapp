@@ -27,8 +27,10 @@ const CreateContactComponent = () => {
 
   }, [data])
 
+  const formIsHalfFilled = Object.values(form).filter((item) => item && item !=='')?.length > 0 && !data
 
-  console.log(form)
+
+  console.log(formIsHalfFilled, '*')
 
 
   const onSubmit = () => {
@@ -44,7 +46,7 @@ const CreateContactComponent = () => {
   return (
     <div>
    
-      <CreateContact onChange={onChange} form={form} onSubmit={onSubmit} formInvalid={formInvalid} loading={loading}/>
+      <CreateContact onChange={onChange} form={form} onSubmit={onSubmit} formInvalid={formInvalid} loading={loading} formIsHalfFilled={formIsHalfFilled}/>
 
     </div>
   )
