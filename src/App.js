@@ -1,11 +1,11 @@
 
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useLocation} from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useLocation, useSearchParams} from 'react-router-dom'
 import routes from './routes';
 import 'semantic-ui-css/semantic.min.css'
 import { GlobalProvider } from './context/Provider';
 import isAuthenticated from './utils/isAuthenticated';
-import { useEffect, Suspense } from 'react';
+import { useEffect, Suspense, useState } from 'react';
 
 
 const RenderRoute = ({ component: Component, path, needsAuth, title, ...rest}) => {
@@ -13,6 +13,11 @@ const RenderRoute = ({ component: Component, path, needsAuth, title, ...rest}) =
   document.title = title || 'E-sport'
 
   const navigate = useNavigate()
+  const {pathname} = useLocation()
+  const [previousPathname, setPreviousPathname] = useState('');
+  const [formIsHalfFilledApp, setFormIsHalfFilledApp] = useState(false)
+  
+ 
  
 
  
@@ -25,11 +30,57 @@ const RenderRoute = ({ component: Component, path, needsAuth, title, ...rest}) =
     }
   }, [])
 
+  //   useEffect(() => {
+  //   const beforeUnloadListener = e => {
+  //     if (formIsHalfFilled) {
+  //       e.preventDefault();
+  //       e.returnValue = '';
+  //     }
+  //   };
+  //   window.addEventListener('beforeunload', beforeUnloadListener);
+
+  //   return () => {
+  //     window.removeEventListener('beforeunload', beforeUnloadListener);
+  //   };
+  // }, [formIsHalfFilled]);
+
+  useEffect(() => {
+    const prevPathname = sessionStorage.getItem('previousPathname') || '';
+    setPreviousPathname(prevPathname);
+    sessionStorage.setItem('previousPathname', pathname);
+    if(prevPathname === '/contacts/create' && formIsHalfFilledApp){
+      const shouldLeavePage = handleLeavePage();
+      if (!shouldLeavePage) {
+        navigate(-1);
+      }
+
+    } 
+  }, [pathname]);
+
+
+    
+
+
+  const handleLeavePage = () => {
+    const confirmation = window.confirm(
+      'You have unsaved changes. Are you sure you want to leave?'
+    );
+    if (confirmation) {
+      return true
+    }
+    return false
+  };
 
 
 
 
- return <Component />
+  // handleLeavePage()
+
+  const props = title === 'CreateContact' ? { setFormIsHalfFilledApp} : {};
+
+  
+
+ return <Component {...props}/>
 
   
 }

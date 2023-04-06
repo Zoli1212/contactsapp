@@ -7,7 +7,7 @@ import { useGlobalContext } from '../../context/Provider'
 import CreateContact from '../../layout/Create'
 
 
-const CreateContactComponent = () => {
+const CreateContactComponent = (props) => {
 
 
   const [form, setForm ] = useState({})
@@ -27,10 +27,25 @@ const CreateContactComponent = () => {
 
   }, [data])
 
+  
+
   const formIsHalfFilled = Object.values(form).filter((item) => item && item !=='')?.length > 0 && !data
 
 
-  console.log(formIsHalfFilled, '*')
+  useEffect(() => {
+
+    if(formIsHalfFilled){
+      props.setFormIsHalfFilledApp(formIsHalfFilled)
+    }
+    return () => {
+      
+      props.setFormIsHalfFilledApp(false);
+    };
+
+  }, [formIsHalfFilled])
+
+
+
 
 
   const onSubmit = () => {

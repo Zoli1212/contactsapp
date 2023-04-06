@@ -25,7 +25,7 @@ const routes = [
   {
     path: "/contacts/create",
     component: CreateContactComponent,
-    title: "Create Contact",
+    title: "CreateContact",
     needsAuth: true,
   },
   {

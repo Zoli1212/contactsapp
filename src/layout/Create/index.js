@@ -29,7 +29,7 @@ const CreateContact = ({
   form
 }) => {
   const imagePickRef = useRef(null);
-  const [formIsDirty, setFormIsDirty] = useState(false);
+
 
 
   const choseImage = () => {
@@ -38,10 +38,9 @@ const CreateContact = ({
     }
   };
 
-  useEffect(()  => {
-    setFormIsDirty(true)
 
-  }, [form])
+
+
 
   return (
     <div>
