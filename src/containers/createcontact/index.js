@@ -11,10 +11,26 @@ const CreateContactComponent = (props) => {
 
 
   const [form, setForm ] = useState({})
+  const [tempFile, setTempFile] = useState(null)
 
   const navigate = useNavigate()
 
   const { contactsDispatch, contactsState: {addContact: { loading, error, data}} } = useGlobalContext()
+
+
+  const onImageChange = e => {
+    e.persist()
+    const fileURL = e.target.files[0]
+    setForm({...form, contactPicture: fileURL})
+
+    if(fileURL){
+
+      setTempFile(URL.createObjectURL(fileURL))
+
+    }
+
+   
+  }
 
   useEffect(() => {
 
@@ -61,7 +77,7 @@ const CreateContactComponent = (props) => {
   return (
     <div>
    
-      <CreateContact onChange={onChange} form={form} onSubmit={onSubmit} formInvalid={formInvalid} loading={loading} formIsHalfFilled={formIsHalfFilled}/>
+      <CreateContact onChange={onChange} form={form} onSubmit={onSubmit} formInvalid={formInvalid} loading={loading} formIsHalfFilled={formIsHalfFilled} onImageChange={onImageChange} tempFile={tempFile}/>
 
     </div>
   )
