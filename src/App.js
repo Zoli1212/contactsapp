@@ -6,6 +6,7 @@ import 'semantic-ui-css/semantic.min.css'
 import { GlobalProvider } from './context/Provider';
 import isAuthenticated from './utils/isAuthenticated';
 import { useEffect, Suspense, useState } from 'react';
+import UserLeaveConfirmation from './components/UserLeaveConfirmation';
 
 
 const RenderRoute = ({ component: Component, path, needsAuth, title, ...rest}) => {
@@ -87,10 +88,16 @@ const RenderRoute = ({ component: Component, path, needsAuth, title, ...rest}) =
 
 function App() {
 
+  const [confirmOpen, setConfirmOpen] = useState(true) 
+
   
   return (
     <GlobalProvider>
-      <Router>
+      <Router getUserConfirmation={(message, callback) => {
+
+        return UserLeaveConfirmation(message, callback, confirmOpen, setConfirmOpen)
+
+      }}>
         <Routes>
           { routes.map((route, index) => (<Route key={index} path={route.path} element={<Suspense fallback={<h2>Loading..</h2>}><RenderRoute {...route} /></Suspense>} />) )}
         </Routes>
