@@ -14,7 +14,14 @@ export const ContactsComponent = () => {
 
   console.log(contactsState)
 
+  const { contacts: {data}} = contactsState
+
  useEffect(() => {
+
+  if(data.length === 0){
+    getContacts(navigate)(contactsDispatch)
+
+  }
 
 
   getContacts(navigate)(contactsDispatch)

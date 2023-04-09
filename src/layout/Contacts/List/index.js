@@ -10,6 +10,7 @@ import {
   Icon,
 } from "semantic-ui-react";
 import { Header } from "../../../components/Header";
+import { ImageThumb } from "../../../components/ImageThumb";
 
 
 const ContactsListUI = ({state: { contacts: { loading, isSearchActive, foundContacts, data }}}) => {
@@ -44,16 +45,18 @@ const ContactsListUI = ({state: { contacts: { loading, isSearchActive, foundCont
           </>
         )}
 
+        {!loading && data.length === 0 && (<Message content="You don't have any contact already"/>)}
+
         <List>
             {
-                data.length && data.map((contact, i) => 
+                data.length > 0 && data.map((contact, i) => 
                 (<List.Item key={contact.id} >
                     <List.Content floated='right'>
                        
                         <span>{contact.phone_number}</span>
                      </List.Content>
                     <List.Content style={{ display: 'flex', alignItems: 'center'}}>
-                        <Image circular height={45} width={45} src={contact.contact_picture} />
+                        <ImageThumb circular firstName={contact.first_name} lastName={contact.last_name} src={contact.contact_picture} style={{ width: 45, height: 45}}/>
                      <span>{ contact.first_name + ' '+ contact.last_name}</span>
                      </List.Content>
 
