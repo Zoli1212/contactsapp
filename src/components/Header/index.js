@@ -6,6 +6,7 @@ import logout from '../../context/actions/auth/logout';
 import { useNavigate} from 'react-router-dom'
 import { GlobalContext } from '../../context/Provider';
 import isAuthenticated from '../../utils/isAuthenticated';
+import searchContacts from '../../context/contacts/searchContacts';
 
 export const Header = () => {
   const  { pathname}  = useLocation()
@@ -23,6 +24,8 @@ export const Header = () => {
   const onChange = (e, { value }) => {
     const searchText = value.trim().replace(/" "/g, "");
 
+    searchContacts(searchText)(dispatch)
+
    
   };
 
@@ -30,7 +33,7 @@ export const Header = () => {
     <Menu secondary pointing>
     <Image src={logo} width={60} />
     <Menu.Item as={NavLink} to="/" style={{ fontSize: 24 }}>
-      TrulyContacts
+      E-sport
     </Menu.Item>
 
     {isAuthenticated() && pathname !== '/contacts/create' && (

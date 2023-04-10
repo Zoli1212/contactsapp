@@ -96,6 +96,29 @@ export const contacts = (state,{ payload, type}) => {
 
         }
 
+        case 'SEARCH_CONTACTS': {
+            const searchValue = payload?.toLowerCase();
+            return {
+              ...state,
+              contacts: {
+                ...state.contacts,
+                loading: false,
+                isSearchActive: !!payload.length > 0 || false,
+                foundContacts: state.contacts.data.filter((item) => {
+                  try {
+                    return (
+                      item.first_name.toLowerCase().search(searchValue) !== -1 ||
+                      item.last_name.toLowerCase().search(searchValue) !== -1 ||
+                      item.phone_number.toLowerCase().search(searchValue) !== -1
+                    );
+                  } catch (error) {
+                    return [];
+                  }
+                }),
+              },
+            };
+          }
+
        
         default:
             return state

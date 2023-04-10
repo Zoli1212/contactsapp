@@ -11,11 +11,12 @@ import {
 } from "semantic-ui-react";
 import { Header } from "../../../components/Header";
 import { ImageThumb } from "../../../components/ImageThumb";
+import Favorites from "../Favorites";
 
 
 const ContactsListUI = ({state: { contacts: { loading, isSearchActive, foundContacts, data }}}) => {
 
-    console.log(loading)
+const currentContacts = isSearchActive ? foundContacts : data
 
 
   return (
@@ -25,6 +26,9 @@ const ContactsListUI = ({state: { contacts: { loading, isSearchActive, foundCont
 
        
         
+        <SemanticHeader>STARRED</SemanticHeader>
+        <Favorites favorites={currentContacts.filter((item) => item.is_favorite)} loading={loading} />
+        <SemanticHeader>ALL</SemanticHeader>
 
         {loading && (
           <>
@@ -49,7 +53,7 @@ const ContactsListUI = ({state: { contacts: { loading, isSearchActive, foundCont
 
         <List>
             {
-                data.length > 0 && data.map((contact, i) => 
+                currentContacts.length > 0 && currentContacts.map((contact, i) => 
                 (<List.Item key={contact.id} >
                     <List.Content floated='right'>
                        

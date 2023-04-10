@@ -33,3 +33,9 @@ export const ADD = {
     CLEAR: 'CLEAR_ADD_CONTACT'
 
 }
+
+
+export const SEARCH = {
+    SEARCH_CONTACTS : 'SEARCH_CONTACTS'
+
+}
