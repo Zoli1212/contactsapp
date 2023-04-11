@@ -14,9 +14,11 @@ import { ImageThumb } from "../../../components/ImageThumb";
 import Favorites from "../Favorites";
 
 
-const ContactsListUI = ({state: { contacts: { loading, isSearchActive, foundContacts, data }}}) => {
+const ContactsListUI = ({state: { contacts: { loading, isSearchActive, foundContacts, data }}, deleteContact}) => {
 
 const currentContacts = isSearchActive ? foundContacts : data
+
+
 
 
   return (
@@ -49,19 +51,27 @@ const currentContacts = isSearchActive ? foundContacts : data
           </>
         )}
 
-        {!loading && data.length === 0 && (<Message content="You don't have any contact already"/>)}
+        {!loading && currentContacts.length === 0 && (<Message content="You don't have any contact already"/>)}
 
         <List>
             {
                 currentContacts.length > 0 && currentContacts.map((contact, i) => 
-                (<List.Item key={contact.id} >
+                (<List.Item key={contact.id} disabled={contact.deleting} >
                     <List.Content floated='right'>
                        
-                        <span>{contact.phone_number}</span>
+                        <span>
+                          {contact.country_code}
+                          {contact.phone_number}</span>
+                        <Button color='red' size="tiny" onClick={() => deleteContact(contact.id)}>
+                          <Icon name='trash' />
+                        </Button>
                      </List.Content>
                     <List.Content style={{ display: 'flex', alignItems: 'center'}}>
                         <ImageThumb circular firstName={contact.first_name} lastName={contact.last_name} src={contact.contact_picture} style={{ width: 45, height: 45}}/>
-                     <span>{ contact.first_name + ' '+ contact.last_name}</span>
+                     <span>
+                      { contact.first_name + ' '+ contact.last_name}
+                      { contact.is_favorite && <Icon name='heart'/>}
+                      </span>
                      </List.Content>
 
                 </List.Item>)

@@ -94,7 +94,33 @@ export const contacts = (state,{ payload, type}) => {
                 }
             }
 
+
         }
+        case 'DELETE_CONTACT_LOADING': {
+            return {
+              ...state,
+              contacts: {
+                ...state.contacts,
+                loading: false,
+                data: state.contacts.data.map((item) => {
+                  if (item.id === payload) {
+                    return { ...item, deleting: true };
+                  }
+                  return item;
+                }),
+              },
+            };
+          }
+        case 'DELETE_CONTACT_SUCCESS': {
+            return {
+              ...state,
+              contacts: {
+                ...state.contacts,
+                loading: false,
+                data: state.contacts.data.filter((item) => item.id !== payload),
+              },
+            };
+          }
 
         case 'SEARCH_CONTACTS': {
             const searchValue = payload?.toLowerCase();
