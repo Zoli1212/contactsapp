@@ -98,9 +98,12 @@ function App() {
         return UserLeaveConfirmation(message, callback, confirmOpen, setConfirmOpen)
 
       }}>
+        <Suspense fallback={<p>Loading</p>}>
+          
         <Routes>
           { routes.map((route, index) => (<Route key={index} path={route.path} element={<Suspense fallback={<h2>Loading..</h2>}><RenderRoute {...route} /></Suspense>} />) )}
         </Routes>
+        </Suspense>
       </Router>
     
     </GlobalProvider>
