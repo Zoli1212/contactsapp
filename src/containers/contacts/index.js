@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Header } from '../../components/Header'
 import deleteContact from '../../context/contacts/deleteContact'
 import getContacts from '../../context/contacts/getContacts'
+import starUnstar from '../../context/contacts/starUnstar'
 import { useGlobalContext } from '../../context/Provider'
 import ContactsListUI from '../../layout/Contacts/List'
 
@@ -21,6 +22,14 @@ export const ContactsComponent = () => {
     deleteContact(id)(contactsDispatch)
   }
 
+
+  const handleStarUnstarContact = (id, is_favorite) => {
+   
+
+    starUnstar(id, !is_favorite)(contactsDispatch)
+
+  }
+
  useEffect(() => {
 
   if(data.length === 0){
@@ -33,6 +42,6 @@ export const ContactsComponent = () => {
 
  }, [])
   return (
-    <ContactsListUI state={contactsState} deleteContact={handleDeleteContact}/>
+    <ContactsListUI state={contactsState} deleteContact={handleDeleteContact} starUnstarContact={handleStarUnstarContact}/>
   )
 }

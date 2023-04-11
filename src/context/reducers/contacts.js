@@ -111,6 +111,21 @@ export const contacts = (state,{ payload, type}) => {
               },
             };
           }
+
+          case 'ADD_REMOVE_STAR_SUCCESS': {
+            return {
+              ...state,
+              contacts: {
+                ...state.contacts,
+                data: state.contacts.data.map((item) => {
+                  if (item.id === payload.id) {
+                    return payload;
+                  }
+                  return item;
+                }),
+              },
+            };
+          }
         case 'DELETE_CONTACT_SUCCESS': {
             return {
               ...state,

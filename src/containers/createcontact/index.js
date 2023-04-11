@@ -73,6 +73,8 @@ const CreateContactComponent = (props) => {
     setForm({...form, [name]: value})
   }
 
+  console.log(form, 'form')
+
   const formInvalid = !form.firstName?.length || !form.lastName?.length|| !form.countryCode?.length || !form.phoneNumber?.length
   return (
     <div>

@@ -14,7 +14,7 @@ import { ImageThumb } from "../../../components/ImageThumb";
 import Favorites from "../Favorites";
 
 
-const ContactsListUI = ({state: { contacts: { loading, isSearchActive, foundContacts, data }}, deleteContact}) => {
+const ContactsListUI = ({state: { contacts: { loading, isSearchActive, foundContacts, data }}, deleteContact, starUnstarContact}) => {
 
 const currentContacts = isSearchActive ? foundContacts : data
 
@@ -65,12 +65,16 @@ const currentContacts = isSearchActive ? foundContacts : data
                         <Button color='red' size="tiny" onClick={() => deleteContact(contact.id)}>
                           <Icon name='trash' />
                         </Button>
+                        <Button onClick={() => starUnstarContact(contact.id, contact.is_favorite)}>
+                          {contact.is_favorite ? 'Unstar': 'Star'}
+                        
+                        </Button>
                      </List.Content>
                     <List.Content style={{ display: 'flex', alignItems: 'center'}}>
                         <ImageThumb circular firstName={contact.first_name} lastName={contact.last_name} src={contact.contact_picture} style={{ width: 45, height: 45}}/>
                      <span>
                       { contact.first_name + ' '+ contact.last_name}
-                      { contact.is_favorite && <Icon name='heart'/>}
+                      { contact.is_favorite && <Icon name='heart' color='red'/>}
                       </span>
                      </List.Content>
 

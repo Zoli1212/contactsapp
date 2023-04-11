@@ -11,11 +11,11 @@ import {
   list,
 } from "firebase/storage";
 
-export default ({ firstName: first_name, lastName: last_name, phoneNumber: phone_number, countryCode: country_code, contactPicture: contact_picture}) => (dispatch) => {
+export default ({ firstName: first_name, lastName: last_name, phoneNumber: phone_number, countryCode: country_code, contactPicture: contact_picture, isFavorite: is_favorite}) => (dispatch) => {
 
     const saveToBackend = (url=null) => {
 
-        axiosInstance().post('/contacts/', {first_name,last_name, phone_number,country_code, contact_picture: url  }).then((res) => { 
+        axiosInstance().post('/contacts/', {first_name,last_name, phone_number,country_code, contact_picture: url, is_favorite  }).then((res) => { 
             dispatch({ type: ADD.SUCCESS,
             payload: res.data})
             console.log('data', res.data) } ).catch((err) => {
